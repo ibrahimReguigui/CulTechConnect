@@ -18,25 +18,21 @@ public class UserServiceImp implements UserService {
 
     private final Keycloak keycloak;
 
-    @Override
-    public UserRepresentation getProfile(String email) {
-        return keycloak.realm("CulTechConnect").users().search(email).get(0);
+    public UserRepresentation getKeycloakProfile(Principal principal) {
+        return keycloak.realm("CulTechConnect").users().search(principal.getName()).get(0);
     }
-
-    public UserRepresentation updateProfile(UserDto userDto,String id) {
-
-        UserResource userResource = keycloak.realm("pidev").users().get(id);
-        UserRepresentation updatedUser = userResource.toRepresentation();
-        updatedUser.setFirstName(userDto.getFirstName());
-        updatedUser.setLastName(userDto.getLastName());
-        updatedUser.getAttributes().put("image", Arrays.asList((userDto.getImage() != null ? userDto.getImage() :
-                updatedUser.getAttributes().get("image").get(0))));
-        updatedUser.getAttributes().put("phoneNumber", Arrays.asList((userDto.getImage() != null ? String.valueOf(userDto.getPhoneNumber()) :
-                updatedUser.getAttributes().get("phoneNumber").get(0))));
-        userResource.update(updatedUser);
-
-        return updatedUser;
+    public UserResource getKeycloakProfileRessource(Principal principal) {
+        return keycloak.realm("CulTechConnect").users().get(principal.getName());
     }
-
-
+    public UserDto getProfile(Principal principal){
+        UserDto userDto=UserDto.builder().email(getKeycloakProfile(principal).getEmail())
+                .phoneNumber(getKeycloakProfile(principal).getAttributes().get("phoneNumber").get(0) != null ?
+                        getKeycloakProfile(principal).getAttributes().get("phoneNumber").get(0) :null)
+                .image(getKeycloakProfile(principal).getAttributes().get("image").get(0) != null ?
+                        getKeycloakProfile(principal).getAttributes().get("image").get(0) :null)
+                .firstName(getKeycloakProfile(principal).getFirstName())
+                .lastName(getKeycloakProfile(principal).getLastName())
+                .build();
+        return userDto;
+    }
 }

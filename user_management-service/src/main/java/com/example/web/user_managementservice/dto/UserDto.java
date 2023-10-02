@@ -21,7 +21,7 @@ public class UserDto {
     private String password;
     private Role role;
     private String image;
-    private int phoneNumber;
+    private String phoneNumber;
     private AcountStatus acountStatus;
 
 }

@@ -29,31 +29,17 @@ public class UserController {
 
     private UserServiceImp userService;
 
-    @CrossOrigin(origins = "http://localhost:4200")
-    @RolesAllowed({"ROLE_MEMBER"})
+    @RolesAllowed({"ROLE_MEMBER","ROLE_ADMIN","ROLE_PARTNER","ROLE_SYSTEMADMIN"})
     @GetMapping("/getUserProfile")
-    public ResponseEntity<String> getUserProfile(Principal principal) {
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-
-        String response = "{\"name\": \"John\", \"email\": \"john@example.com\"}";
-
-        ///
-
-        System.out.println( principal.getName());
-        System.out.println(userService.getProfile(principal.getName()));
-        System.out.println(userService.getProfile(principal.getName()).getId());
-        UserDto userDto=UserDto.builder().email(userService.getProfile(principal.getName()).getEmail())
-                .image()
-        ///
-        return  ResponseEntity.status(HttpStatus.OK).body());
+    public ResponseEntity getUserProfile(Principal principal) {
+        return  ResponseEntity.status(HttpStatus.OK).body(userService.getProfile(principal));
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
-    @RolesAllowed({"ROLE_MEMBER"})
-    @GetMapping("/updateProfile")
-    public ResponseEntity updateProfile(@RequestBody UserDto userDto ,Principal principal) {
-        return  ResponseEntity.status(HttpStatus.OK).body(userService.updateProfile(userDto,userService.getProfile(principal.getName()).getId()));
-    }
+
 }
 
+
+/*
+    HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+                String response = "{\"name\": \"John\", \"email\": \"john@example.com\"}";*/
