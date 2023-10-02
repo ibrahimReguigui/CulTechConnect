@@ -23,5 +23,8 @@ public class UserDto {
     private String image;
     private String phoneNumber;
     private AcountStatus acountStatus;
+    private String societyName;
+    private String adress;
+    private String info;
 
 }

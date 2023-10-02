@@ -31,15 +31,17 @@ public class SecurityConfig {
 
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        return http.authorizeRequests()
-                .anyRequest().authenticated()
-                .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and().oauth2ResourceServer()
-                .jwt().jwtAuthenticationConverter(new KeycloakJwtAuthenticationConverter()).and()
+        return http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+                .authorizeHttpRequests(authz->
+                        authz
+                                .requestMatchers("/api/user/visitor/**").permitAll()
+                                .anyRequest().authenticated())
+
+                .oauth2ResourceServer()
+                .jwt().jwtAuthenticationConverter(new KeycloakJwtAuthenticationConverter())
+                .and()
                 .and().cors() // by default uses a Bean by the name of corsConfigurationSource
                 .and().csrf().disable()
-                .formLogin().disable()
-                .httpBasic().disable()
                 .build();
     }
 }

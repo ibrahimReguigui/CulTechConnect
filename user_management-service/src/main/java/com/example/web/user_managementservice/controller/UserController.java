@@ -26,30 +26,37 @@ import java.util.Map;
 @Slf4j
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
-@RequestMapping("/api/profile")
+@RequestMapping("/api/user")
 @AllArgsConstructor
 public class UserController {
 
     private UserServiceImp userService;
 
     @RolesAllowed({"ROLE_MEMBER","ROLE_ADMIN","ROLE_PARTNER","ROLE_SYSTEMADMIN"})
-    @GetMapping("/getUserProfile")
+    @GetMapping("/profile/getUserProfile")
     public ResponseEntity getUserProfile(Principal principal) {
         return  ResponseEntity.status(HttpStatus.OK).body(userService.getProfile(principal));
     }
 
     @RolesAllowed({"ROLE_MEMBER","ROLE_ADMIN","ROLE_PARTNER","ROLE_SYSTEMADMIN"})
-    @PostMapping("/updatePassword")
+    @PostMapping("/profile/updatePassword")
     public ResponseEntity updatePassword(Principal principal, @RequestParam String newPwd) {
         return  ResponseEntity.status(HttpStatus.OK).body(Map.of("response", userService.updatePassword(principal, newPwd)));
     }
 
     @RolesAllowed({"ROLE_MEMBER","ROLE_ADMIN","ROLE_PARTNER","ROLE_SYSTEMADMIN"})
-    @PostMapping("/updateProfile")
+    @PostMapping("/profile/updateProfile")
     public ResponseEntity updateProfile(Principal principal,@RequestBody UserDto userDto){
         return ResponseEntity.status(HttpStatus.OK).body(userService.updateProfile(principal,userDto));
     }
-
+    @PostMapping("/visitor/register")
+    public ResponseEntity registration(@RequestBody UserDto userDto) {
+        System.out.println("register");
+        String result = userService.registration(userDto);
+        if (result == "User Already Exist")
+            return ResponseEntity.unprocessableEntity().body(Map.of("response", result));
+        return ResponseEntity.status(HttpStatus.CREATED).body(Map.of("response", result));
+    }
 }
 
 
