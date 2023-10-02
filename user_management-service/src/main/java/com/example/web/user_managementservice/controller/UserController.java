@@ -17,8 +17,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.security.Principal;
+import java.util.Map;
 
 @Slf4j
 @CrossOrigin(origins = "http://localhost:4200")
@@ -35,6 +38,17 @@ public class UserController {
         return  ResponseEntity.status(HttpStatus.OK).body(userService.getProfile(principal));
     }
 
+    @RolesAllowed({"ROLE_MEMBER","ROLE_ADMIN","ROLE_PARTNER","ROLE_SYSTEMADMIN"})
+    @PostMapping("/updatePassword")
+    public ResponseEntity updatePassword(Principal principal, @RequestParam String newPwd) {
+        return  ResponseEntity.status(HttpStatus.OK).body(Map.of("response", userService.updatePassword(principal, newPwd)));
+    }
+
+    @RolesAllowed({"ROLE_MEMBER","ROLE_ADMIN","ROLE_PARTNER","ROLE_SYSTEMADMIN"})
+    @PostMapping("/updateProfile")
+    public ResponseEntity updateProfile(Principal principal,@RequestBody UserDto userDto){
+        return ResponseEntity.status(HttpStatus.OK).body(userService.updateProfile(principal,userDto));
+    }
 
 }
 
