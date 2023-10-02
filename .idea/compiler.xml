@@ -9,6 +9,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="chat-service" />
         <module name="configuration-service" />
+        <module name="user_management-service" />
         <module name="gateway-service" />
         <module name="discovery-service" />
       </profile>
@@ -20,6 +21,7 @@
       <module name="configuration-service" options="-parameters" />
       <module name="discovery-service" options="-parameters" />
       <module name="gateway-service" options="-parameters" />
+      <module name="user_management-service" options="-parameters" />
     </option>
   </component>
 </project>
