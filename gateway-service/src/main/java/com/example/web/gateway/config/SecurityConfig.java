@@ -10,20 +10,16 @@ public class SecurityConfig {
 
     @Bean
     public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
-        http.csrf().disable()
+        http
+                .csrf().disable()
                 .formLogin().disable()
-                .httpBasic().disable()// Enable CORS
+                .httpBasic().disable()
                 .authorizeExchange(authorizeExchange ->
                         authorizeExchange
-                                .pathMatchers("/api/user/visitor/**").permitAll()// Allow all requests for simplicity (customize as needed)
+                                .pathMatchers("/api/user/visitor/**").permitAll()
                                 .anyExchange().authenticated()
-                                //.and().cors()
-                                .and().csrf().disable()
-                                .formLogin().disable()
-                                .httpBasic().disable()
                 )
                 .oauth2Login();
-
         return http.build();
     }
 

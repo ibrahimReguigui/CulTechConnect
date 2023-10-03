@@ -24,31 +24,32 @@ import java.security.Principal;
 import java.util.Map;
 
 @Slf4j
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/user")
-@AllArgsConstructor
-public class UserController {
 
+public class UserController {
+    @Autowired
     private UserServiceImp userService;
 
-    @RolesAllowed({"ROLE_MEMBER","ROLE_ADMIN","ROLE_PARTNER","ROLE_SYSTEMADMIN"})
+    @RolesAllowed({"ROLE_MEMBER", "ROLE_ADMIN", "ROLE_PARTNER", "ROLE_SYSTEMADMIN"})
     @GetMapping("/profile/getUserProfile")
     public ResponseEntity getUserProfile(Principal principal) {
-        return  ResponseEntity.status(HttpStatus.OK).body(userService.getProfile(principal));
+        return ResponseEntity.status(HttpStatus.OK).body(userService.getProfile(principal));
     }
 
-    @RolesAllowed({"ROLE_MEMBER","ROLE_ADMIN","ROLE_PARTNER","ROLE_SYSTEMADMIN"})
+    @RolesAllowed({"ROLE_MEMBER", "ROLE_ADMIN", "ROLE_PARTNER", "ROLE_SYSTEMADMIN"})
     @PostMapping("/profile/updatePassword")
     public ResponseEntity updatePassword(Principal principal, @RequestParam String newPwd) {
-        return  ResponseEntity.status(HttpStatus.OK).body(Map.of("response", userService.updatePassword(principal, newPwd)));
+        return ResponseEntity.status(HttpStatus.OK).body(Map.of("response", userService.updatePassword(principal, newPwd)));
     }
 
-    @RolesAllowed({"ROLE_MEMBER","ROLE_ADMIN","ROLE_PARTNER","ROLE_SYSTEMADMIN"})
+    @RolesAllowed({"ROLE_MEMBER", "ROLE_ADMIN", "ROLE_PARTNER", "ROLE_SYSTEMADMIN"})
     @PostMapping("/profile/updateProfile")
-    public ResponseEntity updateProfile(Principal principal,@RequestBody UserDto userDto){
-        return ResponseEntity.status(HttpStatus.OK).body(userService.updateProfile(principal,userDto));
+    public ResponseEntity updateProfile(Principal principal, @RequestBody UserDto userDto) {
+        return ResponseEntity.status(HttpStatus.OK).body(userService.updateProfile(principal, userDto));
     }
+
     @PostMapping("/visitor/register")
     public ResponseEntity registration(@RequestBody UserDto userDto) {
         System.out.println("register");
