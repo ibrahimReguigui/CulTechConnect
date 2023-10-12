@@ -8,12 +8,15 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="chat-service" />
-        <module name="configuration-service" />
         <module name="user_management-service" />
         <module name="gateway-service" />
         <module name="discovery-service" />
+        <module name="notification-service" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="configuration-service" target="17" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
@@ -21,6 +24,7 @@
       <module name="configuration-service" options="-parameters" />
       <module name="discovery-service" options="-parameters" />
       <module name="gateway-service" options="-parameters" />
+      <module name="notification-service" options="-parameters" />
       <module name="user_management-service" options="-parameters" />
     </option>
   </component>
