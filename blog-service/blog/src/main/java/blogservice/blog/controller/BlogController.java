@@ -15,6 +15,7 @@ import java.util.concurrent.Callable;
 @RestController
 @Validated
 @RequestMapping("/")
+@CrossOrigin(origins = "*")
 public class BlogController {
 
     private final BlogService blogService;
@@ -29,12 +30,13 @@ public class BlogController {
         return  () -> blogService.createBlog(map);
     }
 
-    @GetMapping(value = {"getAllBlog"})
+    @GetMapping("getAllBlog")
     public Callable<List<Blog>> getAllBlogs() {
-        return  () -> blogService.getallBlogs();
+        return () -> blogService.getallBlogs();
     }
 
-    @PutMapping(value = {"/UpdateBlog/{blogId}"})
+
+    @PutMapping(value = {"UpdateBlog/{blogId}"})
     public Callable<Blog> updateBlog(@PathVariable Long blogId, @Valid @RequestBody Map<String, Object> map) {
         return  () -> blogService.updateBlog(blogId, map);
     }
