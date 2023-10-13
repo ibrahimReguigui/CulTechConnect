@@ -1,12 +1,16 @@
 package blogservice.blog.controller;
 
 import blogservice.blog.entities.Blog;
+import blogservice.blog.repository.BlogRepository;
 import blogservice.blog.service.BlogService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Positive;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Map;
@@ -30,11 +34,6 @@ public class BlogController {
         return  () -> blogService.createBlog(map);
     }
 
-    @GetMapping("getAllBlog")
-    public Callable<List<Blog>> getAllBlogs() {
-        return () -> blogService.getallBlogs();
-    }
-
 
     @PutMapping(value = {"UpdateBlog/{blogId}"})
     public Callable<Blog> updateBlog(@PathVariable Long blogId, @Valid @RequestBody Map<String, Object> map) {
@@ -46,4 +45,5 @@ public class BlogController {
     public Callable<Blog> getBlogById(@Valid @PathVariable @Positive(message = "id must be positive number")Long blogId) {
         return  () -> blogService.getBlogById(blogId);
     }
+
 }

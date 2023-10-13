@@ -3,7 +3,9 @@ package blogservice.blog.service;
 import blogservice.blog.entities.Blog;
 import blogservice.blog.repository.BlogRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.sql.Date;
 import java.time.LocalDate;
@@ -20,6 +22,7 @@ public class BlogServiceImpl implements BlogService {
     public BlogServiceImpl(BlogRepository blogRepository) {
         this.blogRepository = blogRepository;
     }
+
 
     @Override
     public Blog createBlog(Map<String, Object> map) {
@@ -56,4 +59,6 @@ public class BlogServiceImpl implements BlogService {
         Optional<Blog> blogOptional = blogRepository.findById(blogId);
         return blogOptional.orElse(null);
     }
+
+
 }

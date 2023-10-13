@@ -1,5 +1,6 @@
 package blogservice.blog.entities;
 
+import blogservice.blog.controller.FileRessource;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,4 +28,17 @@ public class Blog {
     private Date createdOn;
 
     private Boolean isPublished;
+    @Lob
+    @Column(length = 1048576)
+    private byte[] image;
+
+
+    public void setImage(byte[] image) {
+        this.image = image;
+    }
+
+    public byte[] getImage() {
+        return this.image;
+    }
 }
+
