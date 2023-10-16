@@ -48,6 +48,9 @@ public class UserServiceImp implements UserService {
                 .build();
         return user;
     }
+    public String getIdByEmail(String email) {
+        return keycloak.realm("CulTechConnect").users().search(email).get(0).getId();
+    }
 
     public String updatePassword(Principal principal, String newPwd) {
         UserResource userResource = getRessource(principal);

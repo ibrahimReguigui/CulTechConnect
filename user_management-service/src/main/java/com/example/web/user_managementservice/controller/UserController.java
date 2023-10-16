@@ -26,6 +26,10 @@ public class UserController {
     private UserServiceImp userService;
 
 
+    @GetMapping("/client/getUserId")
+    public ResponseEntity getUserId(@RequestParam String email) {
+        return ResponseEntity.status(HttpStatus.OK).body(userService.getIdByEmail(email));
+    }
     @RolesAllowed({"ROLE_MEMBER", "ROLE_ADMIN", "ROLE_PARTNER", "ROLE_SYSTEMADMIN"})
     @GetMapping("/profile/getUserProfile")
     public ResponseEntity getUserProfile(Principal principal) {
@@ -67,6 +71,12 @@ public class UserController {
     public ResponseEntity getAllUser(Principal principal) {
         return ResponseEntity.status(HttpStatus.OK).body(userService.getAllUsers(principal));
     }
+
+    @GetMapping("/test")
+    public ResponseEntity test() {
+        return ResponseEntity.status(HttpStatus.OK).body("test sucessfull");
+    }
+
 }
 
 

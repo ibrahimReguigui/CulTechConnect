@@ -36,6 +36,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests()
                 .requestMatchers("/api/user/visitor/**").permitAll()
                 .requestMatchers("/api/user/visitor/*").permitAll()
+                .requestMatchers("/api/user/client/getUserId").permitAll()
                 .anyRequest()
                 .authenticated();
 
