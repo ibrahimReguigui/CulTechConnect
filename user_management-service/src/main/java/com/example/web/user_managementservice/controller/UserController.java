@@ -30,6 +30,7 @@ public class UserController {
     public ResponseEntity getUserId(@RequestParam String email) {
         return ResponseEntity.status(HttpStatus.OK).body(userService.getIdByEmail(email));
     }
+
     @RolesAllowed({"ROLE_MEMBER", "ROLE_ADMIN", "ROLE_PARTNER", "ROLE_SYSTEMADMIN"})
     @GetMapping("/profile/getUserProfile")
     public ResponseEntity getUserProfile(Principal principal) {
@@ -39,7 +40,6 @@ public class UserController {
     @RolesAllowed({"ROLE_MEMBER","ROLE_ADMIN", "ROLE_PARTNER", "ROLE_SYSTEMADMIN"})
     @PostMapping("/profile/updatePassword")
     public ResponseEntity updatePassword(Principal principal, @RequestParam String newPwd) {
-
         return ResponseEntity.status(HttpStatus.OK).body(Map.of("response", userService.updatePassword(principal, newPwd)));
     }
 
@@ -61,11 +61,13 @@ public class UserController {
                     .badRequest()
                     .body(validationErrors);
         }
+
         String result = userService.registration(user);
         if (result == "User Already Exist")
             return ResponseEntity.unprocessableEntity().body(Map.of("response", result));
         return ResponseEntity.status(HttpStatus.CREATED).body(Map.of("response", result));
     }
+
     @RolesAllowed({"ROLE_MEMBER", "ROLE_ADMIN", "ROLE_PARTNER", "ROLE_SYSTEMADMIN"})
     @GetMapping("/getAllUser")
     public ResponseEntity getAllUser(Principal principal) {
@@ -78,9 +80,3 @@ public class UserController {
     }
 
 }
-
-
-/*
-    HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-                String response = "{\"name\": \"John\", \"email\": \"john@example.com\"}";*/

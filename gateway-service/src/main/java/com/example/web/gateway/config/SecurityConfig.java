@@ -10,7 +10,11 @@ public class SecurityConfig {
 
     @Bean
     public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
+<<<<<<< HEAD
         http.cors().disable()
+=======
+        http
+>>>>>>> 332a21e9070e8b8cd285951f651f77b048bf49fc
                 .csrf().disable()
                 .formLogin().disable()
                 .httpBasic().disable()

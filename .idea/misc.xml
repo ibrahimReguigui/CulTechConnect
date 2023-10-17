@@ -10,11 +10,15 @@
         <option value="$PROJECT_DIR$/configuration-service/pom.xml" />
         <option value="$PROJECT_DIR$/user_management-service/pom.xml" />
         <option value="$PROJECT_DIR$/notification-service/pom.xml" />
+        <option value="$PROJECT_DIR$/blog-service/pom.xml" />
+        <option value="$PROJECT_DIR$/ms-email/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
       <set>
-        <option value="$PROJECT_DIR$/configuration-service/pom.xml" />
+        <option value="$PROJECT_DIR$/blog-service/blog/pom.xml" />
+        <option value="$PROJECT_DIR$/fileUpload-service/fileUpload-service/pom.xml" />
+        <option value="$PROJECT_DIR$/fileUpload-service/pom.xml" />
       </set>
     </option>
   </component>
