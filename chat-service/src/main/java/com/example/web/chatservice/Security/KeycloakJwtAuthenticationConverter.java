@@ -1,4 +1,3 @@
-/*
 package com.example.web.chatservice.Security;
 
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
@@ -15,4 +14,3 @@ public class KeycloakJwtAuthenticationConverter extends JwtAuthenticationConvert
         setPrincipalClaimName(PRINCIPAL_CLAIM_NAME);
     }
 }
-*/

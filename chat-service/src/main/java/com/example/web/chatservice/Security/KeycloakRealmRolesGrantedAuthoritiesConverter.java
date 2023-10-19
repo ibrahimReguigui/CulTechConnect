@@ -1,4 +1,3 @@
-/*
 package com.example.web.chatservice.Security;
 
 import org.springframework.core.convert.converter.Converter;
@@ -25,14 +24,17 @@ public class KeycloakRealmRolesGrantedAuthoritiesConverter implements Converter<
         return this;
     }
 
+    /**
+=======
     */
 /**
+>>>>>>> 332a21e9070e8b8cd285951f651f77b048bf49fc
      * Get authorities from the {@code realm_access.roles} jwt claim
      *
      * @param source the source object to convert, which must be an instance of {@link Jwt} (never {@code null})
      * @return collection of {@link GrantedAuthority}
-     *//*
-
+<<<<<<< HEAD
+     */
     @Override
     public Collection<GrantedAuthority> convert(Jwt source) {
         Map<String, Object> realmAccess = source.getClaim("realm_access");
@@ -54,4 +56,3 @@ public class KeycloakRealmRolesGrantedAuthoritiesConverter implements Converter<
     }
 
 }
-*/

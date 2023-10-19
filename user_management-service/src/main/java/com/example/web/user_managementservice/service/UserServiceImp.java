@@ -1,7 +1,10 @@
 package com.example.web.user_managementservice.service;
 
 import com.example.web.user_managementservice.Enum.Role;
-import com.example.web.user_managementservice.dto.UserDto;
+
+import com.example.web.user_managementservice.Interface.UserService;
+import com.example.web.user_managementservice.entities.User;
+import com.example.web.user_managementservice.mapper.KeycloakMapper;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.keycloak.admin.client.CreatedResponseUtil;
@@ -11,11 +14,15 @@ import org.keycloak.admin.client.resource.UsersResource;
 import org.keycloak.representations.idm.CredentialRepresentation;
 import org.keycloak.representations.idm.RoleRepresentation;
 import org.keycloak.representations.idm.UserRepresentation;
+import org.springframework.kafka.core.KafkaTemplate;
+
 import org.springframework.stereotype.Service;
 
 import javax.ws.rs.core.Response;
 import java.security.Principal;
 import java.util.*;
+import java.util.stream.Collectors;
+
 
 @Service
 @AllArgsConstructor
@@ -23,6 +30,9 @@ import java.util.*;
 public class UserServiceImp implements UserService {
 
     private final Keycloak keycloak;
+    private final KafkaTemplate<String,String> kafkaTemplate;
+    private KeycloakMapper keycloakMapper;
+
 
     public UserRepresentation getKeycloakProfile(Principal principal) {
         return keycloak.realm("CulTechConnect").users().search(principal.getName()).get(0);
@@ -31,8 +41,8 @@ public class UserServiceImp implements UserService {
     public UserResource getRessource(Principal principal) {
         return keycloak.realm("CulTechConnect").users().get(getKeycloakProfile(principal).getId());
     }
-    public UserDto getProfile(Principal principal) {
-        UserDto userDto = UserDto.builder().email(getKeycloakProfile(principal).getEmail())
+    public User getProfile(Principal principal) {
+        User user = User.builder().email(getKeycloakProfile(principal).getEmail())
                 .phoneNumber(getKeycloakProfile(principal).getAttributes().get("phoneNumber").get(0) != null ?
                         getKeycloakProfile(principal).getAttributes().get("phoneNumber").get(0) : null)
                 .image(getKeycloakProfile(principal).getAttributes().get("image").get(0) != null ?
@@ -40,7 +50,10 @@ public class UserServiceImp implements UserService {
                 .firstName(getKeycloakProfile(principal).getFirstName())
                 .lastName(getKeycloakProfile(principal).getLastName())
                 .build();
-        return userDto;
+        return user;
+    }
+    public String getIdByEmail(String email) {
+        return keycloak.realm("CulTechConnect").users().search(email).get(0).getId();
     }
 
     public String updatePassword(Principal principal, String newPwd) {
@@ -50,18 +63,19 @@ public class UserServiceImp implements UserService {
         newCredential.setTemporary(false);
         newCredential.setValue(newPwd);
         userResource.resetPassword(newCredential);
+        kafkaTemplate.send("notification","test notif");
         return "Password changed successfully";
     }
 
-    public UserRepresentation updateProfile(Principal principal,UserDto userDto) {
+    public UserRepresentation updateProfile(Principal principal, User user) {
 
         UserResource userResource = getRessource(principal);
         UserRepresentation updatedUser = userResource.toRepresentation();
-        updatedUser.setFirstName(userDto.getFirstName());
-        updatedUser.setLastName(userDto.getLastName());
-        updatedUser.getAttributes().put("image", Arrays.asList((userDto.getImage() != null ? userDto.getImage() :
+        updatedUser.setFirstName(user.getFirstName());
+        updatedUser.setLastName(user.getLastName());
+        updatedUser.getAttributes().put("image", Arrays.asList((user.getImage() != null ? user.getImage() :
                 updatedUser.getAttributes().get("image").get(0))));
-        updatedUser.getAttributes().put("phoneNumber", Arrays.asList((userDto.getImage() != null ? String.valueOf(userDto.getPhoneNumber()) :
+        updatedUser.getAttributes().put("phoneNumber", Arrays.asList((user.getImage() != null ? String.valueOf(user.getPhoneNumber()) :
                 updatedUser.getAttributes().get("phoneNumber").get(0))));
         userResource.update(updatedUser);
 
@@ -74,7 +88,7 @@ public class UserServiceImp implements UserService {
             return false;
         return true;
     }
-    public String registration(UserDto userDto) {
+    public String registration(User userDto) {
         if (userExistByEmailKeycloak(userDto.getEmail()))
             return "User Already Exist";
 
@@ -117,5 +131,16 @@ public class UserServiceImp implements UserService {
         roles.add(role);
         userResource.roles().realmLevel().add(roles);
         return userResource.toString();
+    }
+    public List<User> getAllUsers(Principal principal) {
+        UsersResource usersResource = keycloak.realm("CulTechConnect").users();
+        List<UserRepresentation> userRepresentations = usersResource.list();
+
+        List<User> users = userRepresentations.stream().filter(e->!e.getEmail().equals("systemadmin@mail.com")&&
+                        !e.getEmail().equals(principal.getName()))
+                .map(e->keycloakMapper.userRepresentationMapToUser(e))
+                .collect(Collectors.toList());
+
+        return users;
     }
 }
