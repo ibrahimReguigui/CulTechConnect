@@ -9,8 +9,8 @@
         <outputRelativeToContentRoot value="true" />
         <module name="gateway-service" />
         <module name="chat-service" />
-        <module name="blog" />
         <module name="ms-email" />
+        <module name="blog" />
         <module name="user_management-service" />
         <module name="discovery-service" />
         <module name="notification-service" />
