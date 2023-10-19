@@ -10,14 +10,15 @@
         <module name="configuration-service" />
         <module name="gateway-service" />
         <module name="chat-service" />
-        <module name="blog" />
         <module name="ms-email" />
+        <module name="blog" />
         <module name="user_management-service" />
         <module name="discovery-service" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="fileUpload-service" target="17" />
+      <module name="notification-service" target="17" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
