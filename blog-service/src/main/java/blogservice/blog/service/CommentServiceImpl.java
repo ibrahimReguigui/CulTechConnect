@@ -20,7 +20,13 @@ public class CommentServiceImpl implements CommentService{
     @Autowired
     private CommentRepository commentRepository;
 
-    private ModelMapper modelMapper;
+    private final ModelMapper modelMapper;
+
+    public CommentServiceImpl(ModelMapper modelMapper) {
+        this.modelMapper = modelMapper;
+    }
+
+
     @Override
     public CommentDto createComment(CommentDto commentDto, Long blogId) {
         Blog blog = this.blogRepository.findById(blogId).
