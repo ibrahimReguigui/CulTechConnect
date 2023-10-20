@@ -45,5 +45,15 @@ public class EventServiceImp implements IEventService {
     public List<Event> listAllEvents() {
         List<Event> event = eventRepository.findAll();
         return event;
+
+
+
+    }
+
+
+    @Override
+    public Event getEventDetails(Integer eventId) {
+        Optional<Event> event = eventRepository.findById(eventId);
+        return event.orElse(null);
     }
 }

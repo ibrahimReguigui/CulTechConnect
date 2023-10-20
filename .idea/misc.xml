@@ -14,11 +14,15 @@
         <option value="$PROJECT_DIR$/user_management-service/pom.xml" />
         <option value="$PROJECT_DIR$/event__management-service/pom.xml" />
         <option value="$PROJECT_DIR$/event-management/pom.xml" />
+        <option value="$PROJECT_DIR$/partnerShip_management/pom.xml" />
+        <option value="$PROJECT_DIR$/partnership_management/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
       <set>
         <option value="$PROJECT_DIR$/event__management-service/pom.xml" />
+        <option value="$PROJECT_DIR$/partnerShip_management/pom.xml" />
+        <option value="$PROJECT_DIR$/partnership_management/pom.xml" />
       </set>
     </option>
   </component>

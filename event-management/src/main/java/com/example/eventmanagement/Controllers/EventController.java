@@ -4,6 +4,8 @@ package com.example.eventmanagement.Controllers;
 import com.example.eventmanagement.Entities.Event;
 import com.example.eventmanagement.Services.EventServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -34,6 +36,16 @@ public class EventController {
         return eventServiceImp.listAllEvents();
     }
 
+
+    @GetMapping("/event-details/{eventId}")
+    public ResponseEntity<Event> getEventDetails(@PathVariable Integer eventId) {
+        Event event = eventServiceImp.getEventDetails(eventId);
+        if (event != null) {
+            return new ResponseEntity<>(event, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 
 
 }
