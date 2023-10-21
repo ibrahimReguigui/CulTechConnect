@@ -10,4 +10,7 @@ public interface IRessourcesService {
     void deleteRessource(Integer id);
     void updateRessource(Integer idRs,Ressources ressources);
     List<Ressources> listAllRessources();
+
+    Ressources getRessourceById(Integer id);
+
 }

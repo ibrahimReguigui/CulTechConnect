@@ -2,6 +2,7 @@ package com.example.eventmanagement.Entities;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -26,12 +27,13 @@ public class Event implements Serializable {
     String lieu;
     Date dateDeb;
     Date dateFin;
+    String image;
 
     @Enumerated(EnumType.STRING)
     TypeEvent type;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "event")
-    private Set<Ressources> Ressourcess;
+    @ManyToOne
+    Ressources ressources;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "event")
     private Set<Commentaire> commentaires;

@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serializable;
+import java.util.Set;
 
 
 @Entity
@@ -11,6 +12,7 @@ import java.io.Serializable;
 @Getter
 @Setter
 @Builder
+
 @NoArgsConstructor
 @AllArgsConstructor
 
@@ -22,7 +24,13 @@ public class Ressources implements Serializable{
     String descriptionRs;
     @Enumerated(EnumType.STRING)
     TypeRessources typeRessources;
-    @ManyToOne
-    Event event;
+
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "ressources")
+    private Set<Event> Event;
+
+    public Ressources(Integer idRs) {
+        this.idRs = idRs;
+    }
 }
 

@@ -9,9 +9,11 @@
         <outputRelativeToContentRoot value="true" />
         <module name="event__management-service" />
         <module name="event-management" />
+        <module name="partnership-management" />
         <module name="configuration-service" />
         <module name="gateway-service" />
         <module name="chat-service" />
+        <module name="user_management-service" />
         <module name="discovery-service" />
       </profile>
       <profile name="Gradle Imported" enabled="true">
@@ -37,6 +39,7 @@
       <module name="event-management" options="-parameters" />
       <module name="event__management-service" options="-parameters" />
       <module name="gateway-service" options="-parameters" />
+      <module name="partnership-management" options="-parameters" />
       <module name="user_management-service" options="-parameters" />
       <module name="user_management-service (1)" options="-parameters" />
       <module name="user_management-service (2)" options="-parameters" />

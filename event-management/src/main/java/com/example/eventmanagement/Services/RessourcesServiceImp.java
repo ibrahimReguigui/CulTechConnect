@@ -4,6 +4,7 @@ package com.example.eventmanagement.Services;
 import com.example.eventmanagement.Entities.Event;
 import com.example.eventmanagement.Entities.Ressources;
 import com.example.eventmanagement.Interfaces.IRessourcesService;
+import com.example.eventmanagement.Repositories.EventRepository;
 import com.example.eventmanagement.Repositories.RessourcesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,9 @@ public class RessourcesServiceImp implements IRessourcesService {
 
     @Autowired
     RessourcesRepository ressourcesRepository;
+
+    @Autowired
+    EventRepository eventRepository;
     @Override
     public void addRessource(Ressources r) {
         ressourcesRepository.save(r);
@@ -47,4 +51,11 @@ public class RessourcesServiceImp implements IRessourcesService {
         List<Ressources> ressources = ressourcesRepository.findAll();
         return ressources;
     }
+
+    @Override
+    public Ressources getRessourceById(Integer id) {
+        return ressourcesRepository.findById(id).orElse(null);
+    }
+
+
 }
