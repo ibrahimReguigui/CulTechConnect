@@ -52,8 +52,8 @@ public class FileRessource {
             // Envoi d'un e-mail de notification
             EmailDto emailDto = new EmailDto();
             emailDto.setOwnerRef("Nadine");
-            emailDto.setEmailFrom("mili.nadine07@gmail.com");
-            emailDto.setEmailTo("nadine.mili@esprit.tn");
+            emailDto.setEmailFrom("ibrahim.reguigui@esprit.tn");
+            emailDto.setEmailTo("ibrahim.reguigui@esprit.tn");
             emailDto.setSubject("Notification de création de blog");
             emailDto.setText("Vous avez créé le blog avec succès.");
 
