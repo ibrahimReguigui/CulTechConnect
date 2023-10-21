@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Set;
+
 @RestController
 @RequestMapping("/comments")
 public class CommentController {
@@ -27,5 +29,10 @@ public class CommentController {
         return new ResponseEntity<ApiResponse>(new ApiResponse("Comment deleted successfully!!",
                 true),
                 HttpStatus.OK);
+    }
+
+    @GetMapping("/blog/{blogId}/comments")
+    public Set<CommentDto> getCommentsByBlogId(@PathVariable Long blogId) {
+        return commentService.getCommentsByBlogId(blogId);
     }
 }

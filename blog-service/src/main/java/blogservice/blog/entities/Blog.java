@@ -1,6 +1,7 @@
 package blogservice.blog.entities;
 
 import blogservice.blog.controller.FileRessource;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -34,6 +35,7 @@ public class Blog {
     @Column(length = 1048576)
     private byte[] image;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "blog", cascade = CascadeType.ALL)
     private Set<Comment> comments = new HashSet<>();
 

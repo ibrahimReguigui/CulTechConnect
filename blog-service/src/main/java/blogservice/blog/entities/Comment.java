@@ -1,5 +1,6 @@
 package blogservice.blog.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,6 +24,7 @@ public class Comment {
 
     private String content;
 
+    @JsonIgnore
     @ManyToOne
     private Blog blog;
 
