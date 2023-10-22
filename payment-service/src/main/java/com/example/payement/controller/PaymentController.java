@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
+
 
 @RestController
 @AllArgsConstructor
@@ -17,14 +19,16 @@ public class PaymentController {
     //add payment
     @PostMapping("/addPayment")
     public payment addPayment(@RequestBody payment payment ){
+        System.out.println(payment);
         payment addedPayment = iPayment.addpayment(payment);
-        System.out.println("payment added"+payment);
+        System.out.println("payment added"+addedPayment);
         return addedPayment;
     }
 
     //update payment
     @PutMapping("/updatePayment")
-    public ResponseEntity<String> updatePayment(@RequestBody payment payment ){
+    public ResponseEntity<String> updatePayment(@RequestBody payment payment , Principal principal){
+        principal.getName();
         payment updatedPayment = iPayment.updatepayment(payment);
         System.out.println("payment updated");
         return new ResponseEntity<String>("payment updated", HttpStatus.OK);

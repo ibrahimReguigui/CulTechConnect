@@ -7,9 +7,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="payment-service" />
+        <module name="echange-service" />
+        <module name="gateway-service" />
         <module name="chat-service" />
         <module name="user_management-service" />
-        <module name="gateway-service" />
         <module name="discovery-service" />
         <module name="notification-service" />
       </profile>
@@ -23,8 +25,10 @@
       <module name="chat-service" options="-parameters" />
       <module name="configuration-service" options="-parameters" />
       <module name="discovery-service" options="-parameters" />
+      <module name="echange-service" options="-parameters" />
       <module name="gateway-service" options="-parameters" />
       <module name="notification-service" options="-parameters" />
+      <module name="payment-service" options="-parameters" />
       <module name="user_management-service" options="-parameters" />
     </option>
   </component>

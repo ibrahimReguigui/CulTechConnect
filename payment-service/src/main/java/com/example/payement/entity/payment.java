@@ -1,10 +1,10 @@
 package com.example.payement.entity;
 
 
-import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
 
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
@@ -19,16 +19,17 @@ public class payment implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
     private Long id_payment;
-    private String Name_on_Card;
-    private String Card_Number;
-    private String MM;
-    private String YY;
-    private String CVV;
+    private String name_on_Card;
+    private String card_Number;
+    private String mm;
+    private String yy;
+    private String cvv;
+    private float montant;
     //relation enum with country
     @Enumerated(EnumType.STRING)
-    private Country Country;
+    private Country country;
     //relation enum with type
     @Enumerated(EnumType.STRING)
-    private StatusType StatusType;
+    private StatusType statusType;
     private Long user;
 }

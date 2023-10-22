@@ -26,9 +26,11 @@ public class PaymentService implements IPayment {
         if (p != null) {
             p.setName_on_Card(payment.getName_on_Card());
             p.setCard_Number(payment.getCard_Number());
-            p.setCVV(payment.getCVV());
-            p.setMM(payment.getMM());
-            p.setYY(payment.getYY());
+            p.setCvv(payment.getCvv());
+            p.setMm(payment.getMm());
+            p.setYy(payment.getYy());
+            p.setMontant(payment.getMontant());
+
             p.setCountry(payment.getCountry());
             p.setStatusType(payment.getStatusType());
             p.setUser(payment.getUser());
