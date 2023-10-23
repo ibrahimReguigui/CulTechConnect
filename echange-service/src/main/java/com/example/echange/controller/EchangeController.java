@@ -1,11 +1,13 @@
 package com.example.echange.controller;
 
 import com.example.echange.model.Echange;
+import com.example.echange.model.Participant;
 import com.example.echange.service.EchangeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -53,5 +55,17 @@ public class EchangeController {
     public ResponseEntity<Echange> participateInEchange(@PathVariable Long id) {
         Echange updatedEchange = echangeService.participateInEchange(id);
         return ResponseEntity.ok(updatedEchange);
+    }
+    @GetMapping("/{echangeId}/participants")
+    public List<Participant> getParticipantsByEchangeId(@PathVariable Long echangeId) {
+        List<Participant> participants = echangeService.getParticipantsByEchangeId(echangeId);
+        if (participants != null) {
+            return participants;
+        } else {
+            // Vous pouvez gérer la réponse lorsque l'échange n'est pas trouvé, par exemple, en renvoyant une erreur 404.
+            // Vous pouvez également personnaliser la gestion des erreurs selon vos besoins.
+            // Par exemple, en lançant une exception personnalisée pour gérer cette situation.
+            return new ArrayList<>();
+        }
     }
 }

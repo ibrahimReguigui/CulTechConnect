@@ -1,9 +1,12 @@
 package com.example.echange.service;
 
+import com.example.echange.model.Echange;
 import com.example.echange.model.Participant;
 import com.example.echange.model.Status;
+import com.example.echange.repo.EchangeRepository;
 import com.example.echange.repo.ParticipantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,6 +14,8 @@ import java.util.Optional;
 
 @Service
 public class ParticipantService {
+    private EchangeRepository echangeRepository;
+
 
     private final ParticipantRepository participantRepository;
 
@@ -56,4 +61,5 @@ public class ParticipantService {
             return null;
         }
     }
+
 }

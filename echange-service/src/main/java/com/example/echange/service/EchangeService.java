@@ -1,6 +1,7 @@
 package com.example.echange.service;
 
 import com.example.echange.model.Echange;
+import com.example.echange.model.Participant;
 import com.example.echange.repo.EchangeRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,5 +77,12 @@ public class EchangeService {
         } else {
             return null; // Handle not found case appropriately
         }
+    }
+    public List<Participant> getParticipantsByEchangeId(Long echangeId) {
+        Echange echange = echangeRepository.findById(echangeId).orElse(null);
+        if (echange != null) {
+            return echange.getParticipants();
+        }
+        return null;
     }
 }
