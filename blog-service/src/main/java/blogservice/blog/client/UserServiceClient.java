@@ -9,4 +9,6 @@ public interface UserServiceClient {
 
     @GetMapping("/api/user/client/getUserId")
     String getUserId(@RequestParam String email);
+
+
 }

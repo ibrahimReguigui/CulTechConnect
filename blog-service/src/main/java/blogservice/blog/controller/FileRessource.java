@@ -2,12 +2,17 @@ package blogservice.blog.controller;
 
 import blogservice.blog.client.EmailDto;
 import blogservice.blog.client.EmailServiceClient;
+import blogservice.blog.client.UserServiceClient;
 import blogservice.blog.entities.Blog;
 import blogservice.blog.repository.BlogRepository;
 import blogservice.blog.service.BlogService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -25,6 +30,9 @@ public class FileRessource {
 
     private final BlogService blogService;
 
+    @Autowired
+    private UserServiceClient userServiceClient;
+
     public FileRessource(BlogRepository blogRepository, EmailServiceClient emailServiceClient, BlogService blogService) {
         this.blogRepository = blogRepository;
         this.emailServiceClient = emailServiceClient;
@@ -35,8 +43,18 @@ public class FileRessource {
     public ResponseEntity<?> uploadFiles(@RequestParam("files") List<MultipartFile> multipartFiles,
                                          @RequestParam("title") String title,
                                          @RequestParam("description") String description) {
-        List<String> filenames = new ArrayList<>();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || !(authentication.getPrincipal() instanceof UserDetails)) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Utilisateur non authentifié");
+        }
+
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        String email = userDetails.getUsername();
+
         try {
+            String userId = userServiceClient.getUserId(email);
+
+            List<String> filenames = new ArrayList<>();
             for (MultipartFile file : multipartFiles) {
                 String filename = StringUtils.cleanPath(file.getOriginalFilename());
                 Blog blog = new Blog();
@@ -63,11 +81,15 @@ public class FileRessource {
             } else {
                 System.out.println("Échec de l'envoi d'e-mail : " + response.getStatusCode());
             }
+
+            return ResponseEntity.ok().body(filenames);
         } catch (IOException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erreur lors du traitement des fichiers.");
+        } catch (Exception ex) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Une erreur s'est produite : " + ex.getMessage());
         }
-        return ResponseEntity.ok().body(filenames);
     }
+
     @GetMapping("/blogs")
     public ResponseEntity<List<Blog>> getAllBlogs() {
         List<Blog> blogs = blogRepository.findAll();
