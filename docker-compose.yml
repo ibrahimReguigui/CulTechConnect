@@ -30,94 +30,47 @@ services:
         hard: 65536
     networks:
       - common-net
-  mysqldb-chat-service:
-    container_name: 'mysqldb-chat-service'
-    image: mysql
+  blog-service:
+    container_name: 'blog-service'
+    build: ./blog-service
     ports:
-      - "3308:3306"
-    environment:
-      MYSQL_ALLOW_EMPTY_PASSWORD: "true"
-      MYSQL_DATABASE: "CHAT-DB"
-      MYSQL_ROOT_HOST: "%"
-    healthcheck:
-      test: ["CMD-SHELL", "mysqladmin ping -h localhost"]
-      timeout: 20s
-      retries: 10
+      - "8081:8081"
+    links:
+      - "mysqldb-blog-service"
+      - "discovery-server"
+    depends_on:
+      - mysqldb-blog-service
+      - discovery-server
+      - api-gateway
     restart: always
-    ulimits:
-      nofile:
-        soft: 65536
-        hard: 65536
     networks:
       - common-net
-  mysqldb-email-service:
-    container_name: 'mysqldb-email-service'
-    image: mysql
-    ports:
-      - "3309:3306"
     environment:
-      MYSQL_ALLOW_EMPTY_PASSWORD: "true"
-      MYSQL_DATABASE: "EMAIL-DB"
-      MYSQL_ROOT_HOST: "%"
-    healthcheck:
-      test: ["CMD-SHELL", "mysqladmin ping -h localhost"]
-      timeout: 20s
-      retries: 10
-    restart: always
-    ulimits:
-      nofile:
-        soft: 65536
-        hard: 65536
-    networks:
-      - common-net
-  mysqldb-notification-service:
-    container_name: 'mysqldb-notification-service'
-    image: mysql
-    ports:
-      - "3310:3306"
-    environment:
-      MYSQL_ALLOW_EMPTY_PASSWORD: "true"
-      MYSQL_DATABASE: "NOTIFICATION-DB"
-      MYSQL_ROOT_HOST: "%"
-    healthcheck:
-      test: ["CMD-SHELL", "mysqladmin ping -h localhost"]
-      timeout: 20s
-      retries: 10
-    restart: always
-    ulimits:
-      nofile:
-        soft: 65536
-        hard: 65536
-    networks:
-      - common-net
-  mysqldb-user-service:
-    container_name: 'mysqldb-user-service'
-    image: mysql
-    ports:
-      - "3311:3306"
-    environment:
-      MYSQL_ALLOW_EMPTY_PASSWORD: "true"
-      MYSQL_DATABASE: "USER-DB"
-      MYSQL_ROOT_HOST: "%"
-    healthcheck:
-      test: ["CMD-SHELL", "mysqladmin ping -h localhost"]
-      timeout: 20s
-      retries: 10
-    restart: always
-    ulimits:
-      nofile:
-        soft: 65536
-        hard: 65536
-    networks:
-      - common-net
+      - SPRING_PROFILES_ACTIVE=docker
+      - spring.datasource.url=jdbc:mysql://mysqldb-blog-service:3306/BLOG-DB?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+      - eureka.client.serviceUrl.defaultZone=http://discovery-server:8761/eureka
   discovery-server:
-    build: ./discovery-service
+    build: ./DiscoveryServer
     container_name: discovery-server
     ports:
       - "8761:8761"
     environment:
       - SPRING_PROFILES_ACTIVE=docker
     hostname: discovery-server
+    networks:
+      - common-net
+  api-gateway:
+    build: ./gateway-service
+    container_name: api-gateway
+    ports:
+      - "8762:8762"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_SECURITY=TRACE
+      - eureka.client.serviceUrl.defaultZone=http://discovery-server:8761/eureka
+      - app.eureka-server=discovery-server
+    depends_on:
+      - discovery-server
     networks:
       - common-net
   broker:
