@@ -110,6 +110,16 @@ services:
         hard: 65536
     networks:
       - common-net
+  discovery-server:
+    build: ./discovery-service
+    container_name: discovery-server
+    ports:
+      - "8761:8761"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    hostname: discovery-server
+    networks:
+      - common-net
   broker:
     image: confluentinc/cp-kafka:7.0.1
     container_name: broker
