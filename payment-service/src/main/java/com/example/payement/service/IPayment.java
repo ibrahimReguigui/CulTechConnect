@@ -1,5 +1,6 @@
 package com.example.payement.service;
 
+import com.example.payement.entity.StatusType;
 import com.example.payement.entity.payment;
 
 import java.util.List;
@@ -12,4 +13,5 @@ public interface IPayment {
     public List<payment> getpayments(); // get details of a payment
     public void validatepayment(Long id);
     public void declinepayment(Long id);
+
 }

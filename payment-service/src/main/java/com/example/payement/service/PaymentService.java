@@ -7,12 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PaymentService implements IPayment {
 
     @Autowired
     private PayRepo payRepo;
+    private payment payment;
 
     @Override
     public payment addpayment(payment payment) {
@@ -82,4 +84,5 @@ public class PaymentService implements IPayment {
             throw new RuntimeException("payment not found");
 
     }
+
 }

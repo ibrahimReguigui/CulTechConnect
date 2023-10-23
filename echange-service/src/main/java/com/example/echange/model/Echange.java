@@ -18,6 +18,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+
 public class Echange {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

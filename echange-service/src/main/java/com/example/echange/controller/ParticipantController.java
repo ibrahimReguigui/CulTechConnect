@@ -1,6 +1,7 @@
 package com.example.echange.controller;
 
 import com.example.echange.model.Participant;
+import com.example.echange.model.Status;
 import com.example.echange.service.ParticipantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -60,5 +61,15 @@ public class ParticipantController {
     public ResponseEntity<Void> deleteParticipant(@PathVariable Long id) {
         participantService.deleteParticipant(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+    @PutMapping("/{id}/update-status")
+    public ResponseEntity<Participant> updateParticipantStatus(@PathVariable Long id, @RequestParam Status newStatus) {
+        Participant updatedParticipant = participantService.updateParticipantStatus(id, newStatus);
+
+        if (updatedParticipant != null) {
+            return ResponseEntity.ok(updatedParticipant);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 }

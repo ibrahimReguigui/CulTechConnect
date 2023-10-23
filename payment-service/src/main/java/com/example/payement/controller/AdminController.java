@@ -36,4 +36,5 @@ public class AdminController {
     public ResponseEntity test(){
         return new ResponseEntity(HttpStatus.OK);
     }
+
 }

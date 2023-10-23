@@ -1,6 +1,7 @@
 package com.example.echange.service;
 
 import com.example.echange.model.Participant;
+import com.example.echange.model.Status;
 import com.example.echange.repo.ParticipantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,5 +43,17 @@ public class ParticipantService {
 
     public void deleteParticipant(Long id) {
         participantRepository.deleteById(id);
+    }
+    public Participant updateParticipantStatus(Long id, Status newStatus) {
+        Optional<Participant> optionalParticipant = participantRepository.findById(id);
+
+        if (optionalParticipant.isPresent()) {
+            Participant participant = optionalParticipant.get();
+            participant.setStatut(newStatus);
+            return participantRepository.save(participant);
+        } else {
+            // Gérer l'erreur : participant avec cet ID non trouvé
+            return null;
+        }
     }
 }

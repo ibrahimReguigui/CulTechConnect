@@ -6,6 +6,8 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,10 +22,23 @@ public class EchangeService {
 
     // Create operation
     public Echange createEchange(Echange echange) {
-        return echangeRepository.save(echange);
-    }
+        // Vérifier les dates de début et de fin
+        if (echange.getDateDebut() == null || echange.getDateFin() == null) {
+            throw new IllegalArgumentException("Les dates de début et de fin sont requises.");
+        }
 
-    // Read operation
+        Date currentDate = new Date(); // Date actuelle
+        if (echange.getDateDebut().before(currentDate)) {
+            throw new IllegalArgumentException("La date de début ne peut pas être antérieure à la date actuelle.");
+        }
+
+        if (echange.getDateFin().before(echange.getDateDebut())) {
+            throw new IllegalArgumentException("La date de fin ne peut pas être antérieure à la date de début.");
+        }
+
+        // Si les validations passent, vous pouvez sauvegarder l'entité
+        return echangeRepository.save(echange);
+    }    // Read operation
     public List<Echange> getAllEchanges() {
         return echangeRepository.findAll();
     }
