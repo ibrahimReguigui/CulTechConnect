@@ -25,4 +25,5 @@ public class Notification {
     private String content;
     private Date time;
     private Boolean seen;
+    private String type;
 }
