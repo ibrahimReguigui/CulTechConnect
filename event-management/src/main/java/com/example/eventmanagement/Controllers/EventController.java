@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*")
 public class EventController {
     @Autowired
     EventServiceImp eventServiceImp;
@@ -23,10 +23,11 @@ public class EventController {
     RessourcesServiceImp ressourcesServiceImp;
 
     @PostMapping("/add-Event")
-    public void ajouterEvent(@RequestBody Event event) {
+    public void ajouterEvent(@RequestBody Event event, @RequestParam Integer idRs) {
+
+        Ressources ressource = ressourcesServiceImp.getRessourceById(idRs);
+event.setRessources(ressource);
         eventServiceImp.addEvent(event);
-
-
     }
 
     @DeleteMapping("/deleteEvent/{idEvent}")

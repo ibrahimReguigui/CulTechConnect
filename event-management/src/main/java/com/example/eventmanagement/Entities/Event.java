@@ -28,6 +28,9 @@ public class Event implements Serializable {
     Date dateDeb;
     Date dateFin;
     String image;
+    String numTel;
+    String prixTicket;
+    String nomProprietaire;
 
     @Enumerated(EnumType.STRING)
     TypeEvent type;

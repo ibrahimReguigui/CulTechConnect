@@ -53,7 +53,8 @@ public class RessourcesServiceImp implements IRessourcesService {
     }
 
     @Override
-    public Ressources getRessourceById(Integer id) {
+    public Ressources getRessourceById(Integer id)
+    {
         return ressourcesRepository.findById(id).orElse(null);
     }
 
