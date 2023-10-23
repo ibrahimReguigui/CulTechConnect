@@ -78,6 +78,28 @@ services:
       - common-net
 
 
+  mysqldb-notification-service:
+        container_name: 'mysqldb-notification-service'
+        image: mysql
+        ports:
+          - "3311:3306"
+        environment:
+          MYSQL_ALLOW_EMPTY_PASSWORD: "true"
+          MYSQL_DATABASE: "NOTIFICATION-DB"
+          MYSQL_ROOT_HOST: "%"
+        healthcheck:
+          test: [ "CMD-SHELL", "mysqladmin ping -h localhost" ]
+          timeout: 20s
+          retries: 10
+        restart: always
+        ulimits:
+          nofile:
+            soft: 65536
+            hard: 65536
+        networks:
+          - common-net
+
+
         #les micro-services
   blog-service:
     container_name: 'blog-service'
@@ -125,7 +147,7 @@ services:
     container_name: 'email-service'
     build: ./ms-email
     ports:
-      - "8099:8099"
+      - "8100:8100"
     links:
       - "mysqldb-email-service"
       - "discovery-server"
@@ -140,6 +162,43 @@ services:
       - SPRING_PROFILES_ACTIVE=docker
       - spring.datasource.url=jdbc:mysql://mysqldb-email-service:3306/email-DB?createDatabaseIfNotExist=true
       - eureka.client.serviceUrl.defaultZone=http://discovery-server:8761/eureka
+
+
+
+  notification-service:
+    container_name: 'notification-service'
+    build: ./notification-service
+    ports:
+      - "8099:8099"
+    links:
+      - "mysqldb-notification-service"
+      - "discovery-server"
+    depends_on:
+      - mysqldb-notification-service
+      - discovery-server
+      - api-gateway
+    restart: always
+    networks:
+      - common-net
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - spring.datasource.url=jdbc:mysql://mysqldb-notification-service:3306/BLOG-DB?createDatabaseIfNotExist=true
+      - eureka.client.serviceUrl.defaultZone=http://discovery-server:8761/eureka
+
+
+  user-service:
+    container_name: 'user-service'
+    build: ./user_management-service
+    ports:
+      - "8092:8092"
+    links:
+      - "discovery-server"
+    depends_on:
+      - discovery-server
+      - api-gateway
+    restart: always
+    networks:
+      - common-net
 
 
         #discovery server
