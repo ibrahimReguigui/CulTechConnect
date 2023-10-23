@@ -50,5 +50,20 @@ public class SecurityConfig {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
         return http.build();
+/*=======
+        return http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+                .authorizeHttpRequests(authz->
+                        authz
+                                .requestMatchers("/api/user/visitor/**").permitAll()
+                                .requestMatchers("/api/user/visitor/*").permitAll()
+                                .anyRequest().authenticated())
+
+                .oauth2ResourceServer()
+                .jwt().jwtAuthenticationConverter(new KeycloakJwtAuthenticationConverter())
+                .and()
+                .and().cors() // by default uses a Bean by the name of corsConfigurationSource
+                .and().csrf().disable()
+                .build();
+>>>>>>> */
     }
 }
