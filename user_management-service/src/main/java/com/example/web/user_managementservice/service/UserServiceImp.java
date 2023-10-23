@@ -1,6 +1,7 @@
 package com.example.web.user_managementservice.service;
 
 import com.example.web.user_managementservice.Enum.Role;
+
 import com.example.web.user_managementservice.Interface.UserService;
 import com.example.web.user_managementservice.entities.Notification;
 import com.example.web.user_managementservice.entities.User;
@@ -15,6 +16,7 @@ import org.keycloak.representations.idm.CredentialRepresentation;
 import org.keycloak.representations.idm.RoleRepresentation;
 import org.keycloak.representations.idm.UserRepresentation;
 import org.springframework.kafka.core.KafkaTemplate;
+
 import org.springframework.stereotype.Service;
 
 import javax.ws.rs.core.Response;
@@ -42,7 +44,6 @@ public class UserServiceImp implements UserService {
     }
     public User getProfile(Principal principal) {
         User user = User.builder().email(getKeycloakProfile(principal).getEmail())
-
                 .phoneNumber(getKeycloakProfile(principal).getAttributes().get("phoneNumber").get(0) != null ?
                         getKeycloakProfile(principal).getAttributes().get("phoneNumber").get(0) : null)
                 .image(getKeycloakProfile(principal).getAttributes().get("image").get(0) != null ?
@@ -92,7 +93,6 @@ public class UserServiceImp implements UserService {
         return true;
     }
     public String registration(User userDto) {
-
         if (userExistByEmailKeycloak(userDto.getEmail()))
             return "User Already Exist";
 

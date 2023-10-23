@@ -1,6 +1,5 @@
 package com.example.web.user_managementservice.controller;
 
-
 import com.example.web.user_managementservice.entities.User;
 import com.example.web.user_managementservice.service.UserServiceImp;
 import jakarta.annotation.security.RolesAllowed;
@@ -12,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
-
 
 import java.security.Principal;
 import java.util.List;
@@ -26,6 +24,7 @@ import java.util.stream.Collectors;
 public class UserController {
     @Autowired
     private UserServiceImp userService;
+
 
     @GetMapping("/client/getUserId")
     public ResponseEntity getUserId(@RequestParam String email) {
@@ -46,7 +45,6 @@ public class UserController {
 
     @RolesAllowed({"ROLE_MEMBER", "ROLE_ADMIN", "ROLE_PARTNER", "ROLE_SYSTEMADMIN"})
     @PostMapping("/profile/updateProfile")
-
     public ResponseEntity updateProfile(Principal principal, @RequestBody User user) {
         return ResponseEntity.status(HttpStatus.OK).body(userService.updateProfile(principal, user));
     }
@@ -63,8 +61,8 @@ public class UserController {
                     .badRequest()
                     .body(validationErrors);
         }
-        String result = userService.registration(user);
 
+        String result = userService.registration(user);
         if (result == "User Already Exist")
             return ResponseEntity.unprocessableEntity().body(Map.of("response", result));
         return ResponseEntity.status(HttpStatus.CREATED).body(Map.of("response", result));

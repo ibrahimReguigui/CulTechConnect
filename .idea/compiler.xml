@@ -7,12 +7,14 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="quiz" />
         <module name="event-management" />
         <module name="partnership-management" />
         <module name="gateway-service" />
         <module name="chat-service" />
         <module name="blog" />
         <module name="ms-email" />
+        <module name="reclamation" />
         <module name="user_management-service" />
         <module name="notification-service" />
         <module name="discovery-service" />
@@ -29,6 +31,8 @@
       <module name="ms-email" options="-parameters" />
       <module name="notification-service" options="-parameters" />
       <module name="partnership-management" options="-parameters" />
+      <module name="quiz" options="-parameters" />
+      <module name="reclamation" options="-parameters" />
       <module name="user_management-service" options="-parameters" />
     </option>
   </component>

@@ -17,6 +17,10 @@
     <file url="file://$PROJECT_DIR$/notification-service/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/partnership-management/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/partnership-management/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/quiz/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/quiz/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/reclamation-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/reclamation-service/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/user_management-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/user_management-service/src/main/resources" charset="UTF-8" />
   </component>
