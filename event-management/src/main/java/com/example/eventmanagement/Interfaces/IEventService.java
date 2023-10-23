@@ -13,5 +13,5 @@ public interface IEventService {
     Event getEventDetails(Integer eventId);
     void affecterRessourceAEvent(int idRs, int idEvent);
 
-    String uploadImageToFileSystem(int idEvent, MultipartFile file);
+    //String uploadImageToFileSystem(int idEvent, MultipartFile file);
 }

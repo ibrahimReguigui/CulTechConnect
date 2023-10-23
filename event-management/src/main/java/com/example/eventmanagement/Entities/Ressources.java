@@ -22,6 +22,8 @@ public class Ressources implements Serializable{
     Integer idRs;
     String nomRs;
     String descriptionRs;
+    String proprietaire;
+    String eventNom;
     @Enumerated(EnumType.STRING)
     TypeRessources typeRessources;
 

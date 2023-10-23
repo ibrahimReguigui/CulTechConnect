@@ -85,7 +85,7 @@ public class EventServiceImp implements IEventService {
          eventRepository.save(event);
     }
 
-    @Override
+    /*@Override
     public String uploadImageToFileSystem(int idEvent, MultipartFile file) {
         String fileName= file.getOriginalFilename();
         String randomID= UUID.randomUUID().toString();
@@ -104,6 +104,6 @@ public class EventServiceImp implements IEventService {
             return "file uploaded successfully : " + filePath;
         }
         return null;
+*/
 
-    }
 }

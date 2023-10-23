@@ -23,10 +23,9 @@ public class EventController {
     RessourcesServiceImp ressourcesServiceImp;
 
     @PostMapping("/add-Event")
-    public void ajouterEvent(@RequestBody Event event, @RequestParam Integer idRs) {
+    public void ajouterEvent(@RequestBody Event event) {
 
-        Ressources ressource = ressourcesServiceImp.getRessourceById(idRs);
-event.setRessources(ressource);
+
         eventServiceImp.addEvent(event);
     }
 
@@ -56,7 +55,7 @@ event.setRessources(ressource);
         }
     }
 
-    @PostMapping(value = "/createEvent")
+ /*   @PostMapping(value = "/createEvent")
     public ResponseEntity<?> createEvent(@ModelAttribute EventDTO eventdto) throws IOException {
        Event event=new Event();
         event.setLieu(eventdto.getLieu());
@@ -69,7 +68,7 @@ event.setRessources(ressource);
        eventServiceImp.uploadImageToFileSystem(idEvent.getIdEvent(), eventdto.getImg());
          return ResponseEntity.status(HttpStatus.OK)
                 .body(event);
-    }
+    }*/
 
 
 }
