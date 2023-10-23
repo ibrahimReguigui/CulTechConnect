@@ -11,13 +11,93 @@ services:
     networks:
       - common-net
   mysqldb-blog-service:
-    container_name: 'mysqldb-product-service'
+    container_name: 'mysqldb-blog-service'
     image: mysql
     ports:
-      - "3306:3306"
+      - "3307:3306"
     environment:
-      MYSQL_ROOT_PASSWORD:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "true"
       MYSQL_DATABASE: "BLOG-DB"
+      MYSQL_ROOT_HOST: "%"
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost"]
+      timeout: 20s
+      retries: 10
+    restart: always
+    ulimits:
+      nofile:
+        soft: 65536
+        hard: 65536
+    networks:
+      - common-net
+  mysqldb-chat-service:
+    container_name: 'mysqldb-chat-service'
+    image: mysql
+    ports:
+      - "3308:3306"
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "true"
+      MYSQL_DATABASE: "CHAT-DB"
+      MYSQL_ROOT_HOST: "%"
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost"]
+      timeout: 20s
+      retries: 10
+    restart: always
+    ulimits:
+      nofile:
+        soft: 65536
+        hard: 65536
+    networks:
+      - common-net
+  mysqldb-email-service:
+    container_name: 'mysqldb-email-service'
+    image: mysql
+    ports:
+      - "3309:3306"
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "true"
+      MYSQL_DATABASE: "EMAIL-DB"
+      MYSQL_ROOT_HOST: "%"
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost"]
+      timeout: 20s
+      retries: 10
+    restart: always
+    ulimits:
+      nofile:
+        soft: 65536
+        hard: 65536
+    networks:
+      - common-net
+  mysqldb-notification-service:
+    container_name: 'mysqldb-notification-service'
+    image: mysql
+    ports:
+      - "3310:3306"
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "true"
+      MYSQL_DATABASE: "NOTIFICATION-DB"
+      MYSQL_ROOT_HOST: "%"
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost"]
+      timeout: 20s
+      retries: 10
+    restart: always
+    ulimits:
+      nofile:
+        soft: 65536
+        hard: 65536
+    networks:
+      - common-net
+  mysqldb-user-service:
+    container_name: 'mysqldb-user-service'
+    image: mysql
+    ports:
+      - "3311:3306"
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "true"
+      MYSQL_DATABASE: "USER-DB"
       MYSQL_ROOT_HOST: "%"
     healthcheck:
       test: ["CMD-SHELL", "mysqladmin ping -h localhost"]
