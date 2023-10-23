@@ -10,6 +10,8 @@ services:
       ZOOKEEPER_TICK_TIME: 2000
     networks:
       - common-net
+
+        # les bases de donées
   mysqldb-blog-service:
     container_name: 'mysqldb-blog-service'
     image: mysql
@@ -30,6 +32,8 @@ services:
         hard: 65536
     networks:
       - common-net
+
+
   mysqldb-chat-service:
     container_name: 'mysqldb-chat-service'
     image: mysql
@@ -50,6 +54,8 @@ services:
         hard: 65536
     networks:
       - common-net
+
+        #les micro-services
   blog-service:
     container_name: 'blog-service'
     build: ./blog-service
@@ -69,6 +75,30 @@ services:
       - SPRING_PROFILES_ACTIVE=docker
       - spring.datasource.url=jdbc:mysql://mysqldb-blog-service:3306/BLOG-DB?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
       - eureka.client.serviceUrl.defaultZone=http://discovery-server:8761/eureka
+
+
+  chat-service:
+        container_name: 'chat-service'
+        build: ./chat-service
+        ports:
+          - "8091:8091"
+        links:
+          - "mysqldb-chat-service"
+          - "discovery-server"
+        depends_on:
+          - mysqldb-chat-service
+          - discovery-server
+          - api-gateway
+        restart: always
+        networks:
+          - common-net
+        environment:
+          - SPRING_PROFILES_ACTIVE=docker
+          - spring.datasource.url=jdbc:mysql://mysqldb-chat-service:3306/MESSAGE?createDatabaseIfNotExist=true
+          - eureka.client.serviceUrl.defaultZone=http://discovery-server:8761/eureka
+
+
+        #discovery server
   discovery-server:
     build: ./DiscoveryServer
     container_name: discovery-server
@@ -79,6 +109,9 @@ services:
     hostname: discovery-server
     networks:
       - common-net
+
+
+        # gateway
   api-gateway:
     build: ./gateway-service
     container_name: api-gateway
@@ -93,25 +126,8 @@ services:
       - discovery-server
     networks:
       - common-net
-  chat-service:
-    container_name: 'chat-service'
-    build: ./chat-service
-    ports:
-      - "8091:8091"
-    links:
-      - "mysqldb-chat-service"
-      - "discovery-server"
-    depends_on:
-      - mysqldb-chat-service
-      - discovery-server
-      - api-gateway
-    restart: always
-    networks:
-      - common-net
-    environment:
-      - SPRING_PROFILES_ACTIVE=docker
-      - spring.datasource.url=jdbc:mysql://mysqldb-chat-service:3306/MESSAGE?createDatabaseIfNotExist=true
-      - eureka.client.serviceUrl.defaultZone=http://discovery-server:8761/eureka
+
+        # kafka
   broker:
     image: confluentinc/cp-kafka:7.0.1
     container_name: broker
@@ -129,6 +145,8 @@ services:
       KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
     networks:
       - common-net
+
+        # network
 networks:
   common-net:
     driver: bridge
