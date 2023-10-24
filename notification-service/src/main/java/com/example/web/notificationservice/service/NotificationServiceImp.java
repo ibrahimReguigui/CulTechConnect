@@ -28,10 +28,20 @@ public class NotificationServiceImp implements NotificationService {
     }
 
     @Override
+    public List<Notification> getAllNotif(Principal principal) {
+        return notificationRepository.findAll();
+    }
+
+    @Override
     public void setSeen() {
-        notificationRepository.findAll().stream().filter(e->!e.getSeen()).forEach(e -> {
+        notificationRepository.findAll().stream().forEach(e->{
             e.setSeen(true);
             notificationRepository.save(e);
         });
+        /*notificationRepository.findAll().stream().filter(e->!e.getSeen()).forEach(e -> {
+            e.setSeen(true);
+            notificationRepository.save(e);
+        });*/
+
     }
 }

@@ -20,6 +20,11 @@
         <option value="$PROJECT_DIR$/partnerShip_management/pom.xml" />
         <option value="$PROJECT_DIR$/partnership_management/pom.xml" />
         <option value="$PROJECT_DIR$/partnership-management/pom.xml" />
+        <option value="$PROJECT_DIR$/quiz/pom.xml" />
+        <option value="$PROJECT_DIR$/reclamation-service/pom.xml" />
+        <option value="$PROJECT_DIR$/payment-service/pom.xml" />
+        <option value="$PROJECT_DIR$/echange-service/pom.xml" />
+
       </list>
     </option>
     <option name="ignoredFiles">

@@ -9,6 +9,8 @@ public interface NotificationService {
 
     Notification saveNotification(Notification notification);
     List<Notification> getMyNotification(Principal principal);
+    List<Notification> getAllNotif(Principal principal);
+
 
     void setSeen();
 }
