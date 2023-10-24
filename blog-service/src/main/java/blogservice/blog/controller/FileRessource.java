@@ -4,15 +4,14 @@ import blogservice.blog.client.EmailDto;
 import blogservice.blog.client.EmailServiceClient;
 import blogservice.blog.client.UserServiceClient;
 import blogservice.blog.entities.Blog;
+import blogservice.blog.entities.Notification;
 import blogservice.blog.repository.BlogRepository;
 import blogservice.blog.service.BlogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -29,14 +28,15 @@ public class FileRessource {
    private final EmailServiceClient emailServiceClient;
 
     private final BlogService blogService;
+    private final KafkaTemplate<String, Notification> kafkaTemplate;
 
-    @Autowired
-    private UserServiceClient userServiceClient;
 
-    public FileRessource(BlogRepository blogRepository, EmailServiceClient emailServiceClient, BlogService blogService) {
+    public FileRessource(BlogRepository blogRepository, EmailServiceClient emailServiceClient, BlogService blogService,KafkaTemplate<String, Notification> kafkaTemplate) {
+
         this.blogRepository = blogRepository;
         this.emailServiceClient = emailServiceClient;
         this.blogService = blogService;
+        this.kafkaTemplate=kafkaTemplate;
     }
 
     @PostMapping("/upload")
@@ -64,14 +64,16 @@ public class FileRessource {
                 blog.setCreatedOn(new Date());
                 blog.setIsPublished(true);
                 blogRepository.save(blog);
+                kafkaTemplate.send("notification",Notification.builder().time(new java.util.Date()).content("Blog added !!!")
+                        .userId(blog.getCreatedOn().toString()).build());
                 filenames.add(filename);
             }
 
             // Envoi d'un e-mail de notification
             EmailDto emailDto = new EmailDto();
             emailDto.setOwnerRef("Nadine");
-            emailDto.setEmailFrom("mili.nadine07@gmail.com");
-            emailDto.setEmailTo("nadine.mili@esprit.tn");
+            emailDto.setEmailFrom("ibrahim.reguigui@esprit.tn");
+            emailDto.setEmailTo("ibrahim.reguigui@esprit.tn");
             emailDto.setSubject("Notification de création de blog");
             emailDto.setText("Vous avez créé le blog avec succès.");
 
@@ -88,6 +90,10 @@ public class FileRessource {
         } catch (Exception ex) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Une erreur s'est produite : " + ex.getMessage());
         }
+
+
+        return ResponseEntity.ok().body(filenames);
+
     }
 
     @GetMapping("/blogs")

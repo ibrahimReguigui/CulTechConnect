@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ExternalStorageConfigurationManager" enabled="true" />
+  <component name="FrameworkDetectionExcludesConfiguration">
+    <file type="web" url="file://$PROJECT_DIR$/event_management-service" />
+  </component>
   <component name="MavenProjectsManager">
     <option name="originalFiles">
       <list>
@@ -12,13 +15,25 @@
         <option value="$PROJECT_DIR$/notification-service/pom.xml" />
         <option value="$PROJECT_DIR$/blog-service/pom.xml" />
         <option value="$PROJECT_DIR$/ms-email/pom.xml" />
+        <option value="$PROJECT_DIR$/event__management-service/pom.xml" />
+        <option value="$PROJECT_DIR$/event-management/pom.xml" />
+        <option value="$PROJECT_DIR$/partnerShip_management/pom.xml" />
+        <option value="$PROJECT_DIR$/partnership_management/pom.xml" />
+        <option value="$PROJECT_DIR$/partnership-management/pom.xml" />
+        <option value="$PROJECT_DIR$/quiz/pom.xml" />
+        <option value="$PROJECT_DIR$/reclamation-service/pom.xml" />
+        <option value="$PROJECT_DIR$/payment-service/pom.xml" />
+        <option value="$PROJECT_DIR$/echange-service/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
       <set>
         <option value="$PROJECT_DIR$/blog-service/blog/pom.xml" />
+        <option value="$PROJECT_DIR$/event__management-service/pom.xml" />
         <option value="$PROJECT_DIR$/fileUpload-service/fileUpload-service/pom.xml" />
         <option value="$PROJECT_DIR$/fileUpload-service/pom.xml" />
+        <option value="$PROJECT_DIR$/partnerShip_management/pom.xml" />
+        <option value="$PROJECT_DIR$/partnership_management/pom.xml" />
       </set>
     </option>
   </component>
