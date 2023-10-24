@@ -43,6 +43,8 @@ public class ChatController {
 
             messagingTemplate.convertAndSend("/message/" + recipientUserId, savedMessage, headerAccessor.getMessageHeaders());
             messagingTemplate.convertAndSend("/message/" + senderUserId, savedMessage, headerAccessor.getMessageHeaders());
+            messagingTemplate.convertAndSend("/message/notification" + recipientUserId, 5, headerAccessor.getMessageHeaders());
+
             return null;
         }
         return message;
@@ -57,6 +59,11 @@ public class ChatController {
     public ResponseEntity setMessageSeen(@RequestParam Long id){
         chatMessageService.setMessageSeen(id);
         return ResponseEntity.status(HttpStatus.OK).body(Map.of(id, "Done"));
+    }
+
+    @GetMapping("/chat/getConnectedUsers")
+    public ResponseEntity getConnectedUsers(){
+        return ResponseEntity.status(HttpStatus.OK).body(userSessionRegistry.getAllConnectedUsers().keySet());
     }
 
 }

@@ -39,8 +39,8 @@ public class Event implements Serializable {
     @ManyToOne
     Ressources ressources;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "event")
-    private Set<Commentaire> commentaires;
+
+
 
     public void setImage(byte[] image) {
         this.image = image;

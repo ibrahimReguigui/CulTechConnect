@@ -1,0 +1,13 @@
+6Ld4fV0oAAAAAPcihBav9k3YQfZIRiZOSrD19Wz9
+6Ld4fV0oAAAAACpmhRHZLGm-PLQNsRReH19grBPo
+
+smtp
+hwgrnqzmzalwnaly
+
+
+docker cp 467a85f1dcc7:/root C:\\Users\\33646\\dockercp
+
+
+
+
+chrome.exe --user-data-dir="C://Chrome dev session" --disable-web-security

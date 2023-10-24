@@ -1,7 +1,9 @@
 package com.example.web.user_managementservice.service;
 
 import com.example.web.user_managementservice.Enum.Role;
+
 import com.example.web.user_managementservice.Interface.UserService;
+import com.example.web.user_managementservice.entities.Notification;
 import com.example.web.user_managementservice.entities.User;
 import com.example.web.user_managementservice.mapper.KeycloakMapper;
 import lombok.AllArgsConstructor;
@@ -14,6 +16,7 @@ import org.keycloak.representations.idm.CredentialRepresentation;
 import org.keycloak.representations.idm.RoleRepresentation;
 import org.keycloak.representations.idm.UserRepresentation;
 import org.springframework.kafka.core.KafkaTemplate;
+
 import org.springframework.stereotype.Service;
 
 import javax.ws.rs.core.Response;
@@ -28,7 +31,7 @@ import java.util.stream.Collectors;
 public class UserServiceImp implements UserService {
 
     private final Keycloak keycloak;
-    private final KafkaTemplate<String,String> kafkaTemplate;
+    private final KafkaTemplate<String, Notification> kafkaTemplate;
     private KeycloakMapper keycloakMapper;
 
 
@@ -41,7 +44,6 @@ public class UserServiceImp implements UserService {
     }
     public User getProfile(Principal principal) {
         User user = User.builder().email(getKeycloakProfile(principal).getEmail())
-
                 .phoneNumber(getKeycloakProfile(principal).getAttributes().get("phoneNumber").get(0) != null ?
                         getKeycloakProfile(principal).getAttributes().get("phoneNumber").get(0) : null)
                 .image(getKeycloakProfile(principal).getAttributes().get("image").get(0) != null ?
@@ -49,6 +51,8 @@ public class UserServiceImp implements UserService {
                 .firstName(getKeycloakProfile(principal).getFirstName())
                 .lastName(getKeycloakProfile(principal).getLastName())
                 .build();
+        kafkaTemplate.send("notification",Notification.builder().time(new Date()).content("test")
+                .userId("12234").build());
         return user;
     }
     public String getIdByEmail(String email) {
@@ -62,7 +66,8 @@ public class UserServiceImp implements UserService {
         newCredential.setTemporary(false);
         newCredential.setValue(newPwd);
         userResource.resetPassword(newCredential);
-        kafkaTemplate.send("notification","test notif");
+        kafkaTemplate.send("notification",Notification.builder().time(new Date()).content("test")
+                .userId("12234").build());
         return "Password changed successfully";
     }
 
@@ -88,7 +93,6 @@ public class UserServiceImp implements UserService {
         return true;
     }
     public String registration(User userDto) {
-
         if (userExistByEmailKeycloak(userDto.getEmail()))
             return "User Already Exist";
 
