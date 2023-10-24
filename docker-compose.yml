@@ -11,11 +11,11 @@ services:
     networks:
       - common-net
 
+      # les bases de donées
   mysqldb-blog-service:
     container_name: 'mysqldb-blog-service'
     image: mysql
     ports:
-
       - "3307:3390"
     environment:
       MYSQL_ALLOW_EMPTY_PASSWORD: "true"
@@ -38,9 +38,7 @@ services:
     container_name: 'mysqldb-chat-service'
     image: mysql
     ports:
-
       - "3308:3390"
-
     environment:
       MYSQL_ALLOW_EMPTY_PASSWORD: "true"
       MYSQL_DATABASE: "MESSAGE"
@@ -62,7 +60,6 @@ services:
     container_name: 'mysqldb-email-service'
     image: mysql
     ports:
-
       - "3310:3390"
     environment:
       MYSQL_ALLOW_EMPTY_PASSWORD: "true"
@@ -104,7 +101,6 @@ services:
 
 
     #les micro-services
-
   blog-service:
     container_name: 'blog-service'
     build: ./blog-service
@@ -123,7 +119,6 @@ services:
     environment:
       - SPRING_PROFILES_ACTIVE=docker
       - spring.datasource.url=jdbc:mysql://mysqldb-blog-service:3390/BLOG-DB?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
-
       - eureka.client.serviceUrl.defaultZone=http://discovery-server:8761/eureka
 
 
@@ -146,7 +141,6 @@ services:
       - SPRING_PROFILES_ACTIVE=docker
       - spring.datasource.url=jdbc:mysql://mysqldb-chat-service:3390/MESSAGE?createDatabaseIfNotExist=true
       - eureka.client.serviceUrl.defaultZone=http://discovery-server:8761/eureka
-
 
 
   email-service:
@@ -189,7 +183,6 @@ services:
     environment:
       - SPRING_PROFILES_ACTIVE=docker
       - spring.datasource.url=jdbc:mysql://mysqldb-notification-service:3390/BLOG-DB?createDatabaseIfNotExist=true
-
       - eureka.client.serviceUrl.defaultZone=http://discovery-server:8761/eureka
 
 
@@ -208,11 +201,9 @@ services:
       - common-net
 
 
-
       #discovery server
   discovery-server:
     build: ./discovery-service
-
     container_name: discovery-server
     ports:
       - "8761:8761"
@@ -224,7 +215,6 @@ services:
 
 
       # gateway
-
   api-gateway:
     build: ./gateway-service
     container_name: api-gateway
@@ -240,9 +230,7 @@ services:
     networks:
       - common-net
 
-
       # kafka
-
   broker:
     image: confluentinc/cp-kafka:7.0.1
     container_name: broker
@@ -261,9 +249,7 @@ services:
     networks:
       - common-net
 
-
       # network
-
 networks:
   common-net:
     driver: bridge

@@ -11,6 +11,5 @@ public interface NotificationService {
     List<Notification> getMyNotification(Principal principal);
     List<Notification> getAllNotif(Principal principal);
 
-
     void setSeen();
 }

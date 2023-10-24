@@ -26,7 +26,6 @@ public class Listener {
         log.info(notification.getUserId());
         notification=notificationService.saveNotification(notification);
         messagingTemplate.convertAndSend("/notification", notification);
-
     }
 
 }

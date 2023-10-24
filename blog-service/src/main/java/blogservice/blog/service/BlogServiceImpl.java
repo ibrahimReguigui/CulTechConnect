@@ -1,14 +1,12 @@
 package blogservice.blog.service;
 
 import blogservice.blog.entities.Blog;
-
 import blogservice.blog.entities.Notification;
 import blogservice.blog.repository.BlogRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
-
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
@@ -29,7 +27,6 @@ public class BlogServiceImpl implements BlogService {
     public BlogServiceImpl(BlogRepository blogRepository ,KafkaTemplate<String, Notification> kafkaTemplate) {
         this.blogRepository = blogRepository;
         this.kafkaTemplate =kafkaTemplate;
-
     }
 
 
@@ -40,10 +37,8 @@ public class BlogServiceImpl implements BlogService {
         blog.setDescription(map.get("description").toString());
         blog.setCreatedOn(Date.valueOf(LocalDate.now()));
         blog.setIsPublished(true);
-
         kafkaTemplate.send("notification",Notification.builder().time(new java.util.Date()).content("Blog added !!!")
                 .userId(blog.getCreatedOn().toString()).build());
-
         return blogRepository.save(blog);
     }
 

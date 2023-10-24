@@ -18,4 +18,5 @@ public class Commentaire implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer idComm;
     String contenu;
+
 }
