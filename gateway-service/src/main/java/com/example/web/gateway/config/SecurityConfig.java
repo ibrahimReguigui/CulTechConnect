@@ -11,8 +11,8 @@ public class SecurityConfig {
     @Bean
     public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
 
-        http
 
+        http
                 .csrf().disable()
                 .formLogin().disable()
                 .httpBasic().disable()

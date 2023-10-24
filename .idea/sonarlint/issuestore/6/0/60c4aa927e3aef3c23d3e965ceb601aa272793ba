@@ -1,0 +1,19 @@
+
+¦
+java:S4449;"Annotate the parameter with @javax.annotation.Nullable in method 'cleanPath' declaration, or make sure that null can not be passed as argument.(ï¼åÜ
+P
+java:S18547":Remove this useless assignment to local variable "userId".(¦ì®‰
+A
+java:S1452+"&Remove usage of generic wildcard type.(î¨òÜøÿÿÿÿ
+A
+java:S14817"+Remove this unused "userId" local variable.(¦ì®‰
+E	java:S106P"+Replace this use of System.out by a logger.(ŠøÎŠøÿÿÿÿ
+@	java:S106R"+Replace this use of System.out by a logger.(©½¼“
+A
+java:S1452v"&Remove usage of generic wildcard type.(ÏÄ—ïúÿÿÿÿ
+F	java:S106’"+Replace this use of System.out by a logger.(ŠøÎŠøÿÿÿÿ
+A	java:S106”"+Replace this use of System.out by a logger.(©½¼“
+U
+java:S1128":Remove this unused import 'java.util.concurrent.Callable'.(¾×¶îûÿÿÿÿ
+E
+java:S1068"/Remove this unused "blogService" private field.( ÎÄ
