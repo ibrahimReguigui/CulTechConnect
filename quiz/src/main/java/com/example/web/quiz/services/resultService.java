@@ -13,7 +13,7 @@ public class resultService implements resultInterface {
     resultRepository resultRepository;
 
     public result getResultForQuiz(Integer idQuiz) {
-
-        return resultRepository.findByQuizId(idQuiz);
+return null;
+       // return resultRepository.findByQuizId(idQuiz);
     }
 }
