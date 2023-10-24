@@ -40,8 +40,6 @@ public class Event implements Serializable {
     Ressources ressources;
 
 
-
-
     public void setImage(byte[] image) {
         this.image = image;
     }

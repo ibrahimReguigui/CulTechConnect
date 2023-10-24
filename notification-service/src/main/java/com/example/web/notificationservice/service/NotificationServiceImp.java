@@ -42,5 +42,6 @@ public class NotificationServiceImp implements NotificationService {
             e.setSeen(true);
             notificationRepository.save(e);
         });*/
+
     }
 }

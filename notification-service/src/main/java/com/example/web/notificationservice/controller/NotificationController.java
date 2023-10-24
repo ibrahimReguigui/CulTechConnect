@@ -1,5 +1,6 @@
 package com.example.web.notificationservice.controller;
 
+
 import com.example.web.notificationservice.entitie.Notification;
 import com.example.web.notificationservice.interfaces.NotificationService;
 import lombok.AllArgsConstructor;
@@ -10,6 +11,7 @@ import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -34,5 +36,6 @@ public class NotificationController {
     public ResponseEntity getMyNotification(Principal principal) {
         System.out.println(notificationService.getAllNotif(principal));
         return ResponseEntity.status(HttpStatus.OK).body(notificationService.getAllNotif(principal));
+
     }
 }

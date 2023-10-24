@@ -27,4 +27,5 @@ public class Notification {
     private Date time;
     private String type;
 
+
 }
