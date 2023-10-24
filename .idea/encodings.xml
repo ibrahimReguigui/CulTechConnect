@@ -1,20 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/blog-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/blog-service/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/chat-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/chat-service/src/main/resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/configuration-service/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/configuration-service/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/discovery-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/discovery-service/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/echange-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/echange-service/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/event-management/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/event-management/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/gateway-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/gateway-service/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ms-email/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ms-email/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/notification-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/notification-service/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/partnership-management/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/partnership-management/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/payment-service/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/payment-service/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/quiz/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/quiz/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/reclamation-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/reclamation-service/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/user_management-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/user_management-service/src/main/resources" charset="UTF-8" />
   </component>

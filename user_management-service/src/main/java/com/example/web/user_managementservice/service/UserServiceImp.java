@@ -1,7 +1,9 @@
 package com.example.web.user_managementservice.service;
 
 import com.example.web.user_managementservice.Enum.Role;
+
 import com.example.web.user_managementservice.Interface.UserService;
+import com.example.web.user_managementservice.entities.Notification;
 import com.example.web.user_managementservice.entities.User;
 import com.example.web.user_managementservice.mapper.KeycloakMapper;
 import lombok.AllArgsConstructor;
@@ -14,6 +16,7 @@ import org.keycloak.representations.idm.CredentialRepresentation;
 import org.keycloak.representations.idm.RoleRepresentation;
 import org.keycloak.representations.idm.UserRepresentation;
 import org.springframework.kafka.core.KafkaTemplate;
+
 import org.springframework.stereotype.Service;
 
 import javax.ws.rs.core.Response;
@@ -21,14 +24,16 @@ import java.security.Principal;
 import java.util.*;
 import java.util.stream.Collectors;
 
+
 @Service
 @AllArgsConstructor
 @Slf4j
 public class UserServiceImp implements UserService {
 
     private final Keycloak keycloak;
-    private final KafkaTemplate<String,String> kafkaTemplate;
+    private final KafkaTemplate<String, Notification> kafkaTemplate;
     private KeycloakMapper keycloakMapper;
+
 
     public UserRepresentation getKeycloakProfile(Principal principal) {
         return keycloak.realm("CulTechConnect").users().search(principal.getName()).get(0);
@@ -46,6 +51,8 @@ public class UserServiceImp implements UserService {
                 .firstName(getKeycloakProfile(principal).getFirstName())
                 .lastName(getKeycloakProfile(principal).getLastName())
                 .build();
+        kafkaTemplate.send("notification",Notification.builder().time(new Date()).content("test")
+                .userId("12234").build());
         return user;
     }
     public String getIdByEmail(String email) {
@@ -59,7 +66,8 @@ public class UserServiceImp implements UserService {
         newCredential.setTemporary(false);
         newCredential.setValue(newPwd);
         userResource.resetPassword(newCredential);
-        kafkaTemplate.send("notification","test notif");
+        kafkaTemplate.send("notification",Notification.builder().time(new Date()).content("test")
+                .userId("12234").build());
         return "Password changed successfully";
     }
 
@@ -128,7 +136,6 @@ public class UserServiceImp implements UserService {
         userResource.roles().realmLevel().add(roles);
         return userResource.toString();
     }
-
     public List<User> getAllUsers(Principal principal) {
         UsersResource usersResource = keycloak.realm("CulTechConnect").users();
         List<UserRepresentation> userRepresentations = usersResource.list();

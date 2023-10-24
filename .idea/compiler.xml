@@ -7,28 +7,37 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="payment-service" />
-        <module name="echange-service" />
-        <module name="gateway-service" />
+
+        <module name="quiz" />
+        <module name="partnership-management" />
         <module name="chat-service" />
-        <module name="user_management-service" />
-        <module name="discovery-service" />
+        <module name="ms-email" />
+        <module name="blog" />
         <module name="notification-service" />
+        <module name="discovery-service" />
+        <module name="payment-service" />
+        <module name="event-management" />
+        <module name="gateway-service" />
+        <module name="echange" />
+        <module name="reclamation" />
+        <module name="user_management-service" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="configuration-service" target="17" />
-    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="blog" options="-parameters" />
       <module name="chat-service" options="-parameters" />
-      <module name="configuration-service" options="-parameters" />
       <module name="discovery-service" options="-parameters" />
-      <module name="echange-service" options="-parameters" />
+      <module name="echange" options="-parameters" />
+      <module name="event-management" options="-parameters" />
       <module name="gateway-service" options="-parameters" />
+      <module name="ms-email" options="-parameters" />
       <module name="notification-service" options="-parameters" />
+      <module name="partnership-management" options="-parameters" />
       <module name="payment-service" options="-parameters" />
+      <module name="quiz" options="-parameters" />
+      <module name="reclamation" options="-parameters" />
       <module name="user_management-service" options="-parameters" />
     </option>
   </component>
