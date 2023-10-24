@@ -25,5 +25,6 @@ public class Notification {
     private String userId;
     private String content;
     private Date time;
+    private String type;
 
 }
