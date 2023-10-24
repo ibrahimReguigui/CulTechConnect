@@ -25,7 +25,7 @@ public class NotificationController {
     private final SimpMessagingTemplate messagingTemplate;
     private NotificationService notificationService;
 
-    @MessageMapping("/setSeen")
+    @GetMapping("/setSeen")
     public void setSeen(Principal principal) {
         notificationService.setSeen();
         }
