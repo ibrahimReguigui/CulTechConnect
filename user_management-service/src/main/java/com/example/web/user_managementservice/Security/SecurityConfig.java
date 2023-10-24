@@ -37,9 +37,6 @@ public class SecurityConfig {
                 .requestMatchers("/api/user/visitor/**").permitAll()
                 .requestMatchers("/api/user/visitor/*").permitAll()
                 .requestMatchers("/api/user/client/getUserId").permitAll()
-                .requestMatchers("/comments/**").permitAll()
-                .requestMatchers("/file/**").permitAll()
-                .requestMatchers("/createBlog", "/UpdateBlog/**", "/getBlogById/**").permitAll()
                 .anyRequest()
                 .authenticated();
 
